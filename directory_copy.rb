@@ -8,11 +8,9 @@ def input_students
     hobby = gets.chomp
     puts "Country: "
     country = gets.chomp
-    puts "Cohort: "
-    cohort = gets.chomp
     while !name.empty? do
 
-        students << {name: name, hobby: hobby, country: country, cohort: cohort.default = :november}
+        students << {name: name, hobby: hobby, country: country, cohort: :november}
         puts "Now we have #{students.count} students"
 
         puts "Name: "
