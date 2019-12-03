@@ -34,10 +34,7 @@ def print(students)
     student_count = 0
     until student_count == students.length do
         
-        print "#{students[student_count][:name]}" 
-        print "Hobby: #{students[student_count][:hobby]}" 
-        print "Country: #{students[student_count][:country]}"
-        print "(#{students[student_count][:cohort]} cohort)"
+        puts "#{students[student_count][:name]} Hobby: #{students[student_count][:hobby]} Country: #{students[student_count][:country]} (#{students[student_count][:cohort]} cohort)"
         student_count += 1
     end
 end
