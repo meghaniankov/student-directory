@@ -1,46 +1,58 @@
 def input_students
+months = {
+    "" => :none,
+    "January" => :january,
+    "February" => :february,
+    "March" => :march,
+    "April" => :april,
+    "May" => :may,
+    "June" => :june,
+    "July" => :july,
+    "August" => :august,
+    "September" => :september,
+    "October" => :october,
+    "November" => :november,
+    "December" => :december,
+}
     puts "Please enter the following info"
     puts "To finish, just hit return twice"
     students = []
     puts "Enter name: "
     name = gets.chomp
-    puts "Hobby: "
-    hobby = gets.chomp
-    puts "Country: "
-    country = gets.chomp
+    if name.empty?
+        name = "none"
+    end
+    puts "Cohort: "
+    cohort = months[gets.capitalize.chomp]
+    while cohort == nil do
+        puts "Try again..."
+        puts "Cohort: "
+        cohort = months[gets.capitalize.chomp]
+    end
     while !name.empty? do
-
-        students << {name: name, hobby: hobby, country: country, cohort: :november}
+        students << {name: name, cohort: cohort}
         puts "Now we have #{students.count} students"
-
         puts "Name: "
         name = gets.chomp
-        if !name.empty? 
-            puts "Hobby: "
-            hobby = gets.chomp
-            puts "Country: "
-            country = gets.chomp
-        end
     end
     students
 end
 
 def print_header
-    puts "The students of Villains Academy".center(100)
-    puts "-------------".center(100)
+    puts "The students of Villains Academy".center(50)
+    puts "-------------".center(50)
 end
 
 def print(students)
     student_count = 0
-    puts "Name"
     until student_count == students.length do
-        puts "Name: #{students[student_count][:name]}".center(25) + "Hobby: #{students[student_count][:hobby]}".center(25) + "Country: #{students[student_count][:country]}".center(25) + "Cohort: #{students[student_count][:cohort]}".center(25)
+        puts "Name: #{students[student_count][:name]}".center(25) + "Cohort: #{students[student_count][:cohort]}".center(25)
         student_count += 1
     end
 end
 
 def print_footer(students)
-    puts "Overall, we have #{students.count} great students".center(100)
+    puts "Overall, we have #{students.count} great students".center(50)
 end
 
 students = input_students
