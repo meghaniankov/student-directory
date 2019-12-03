@@ -21,11 +21,15 @@ def print_header
     puts "The students of Villains Academy"
     puts "-------------"
 end
+
 def print(students)
-    students.each_with_index do |student, i|
-        puts "#{i + 1}. #{student[:name]} (#{student[:cohort]} cohort)" if student[:name].length < 12
+    student_count = 0
+    until student_count == students.length do
+        puts "#{students[student_count][:name]} (#{students[student_count][:cohort]} cohort)"
+        student_count += 1
     end
 end
+
 def print_footer(students)
     puts "Overall, we have #{students.count} great students"
 end
