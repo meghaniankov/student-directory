@@ -21,6 +21,7 @@ def input_students
         if name.empty?
             name = "none"
         end
+
         puts "Cohort: "
         cohort = months[gets.capitalize.chomp]
         while cohort == nil do
@@ -28,8 +29,15 @@ def input_students
             puts "Cohort: "
             cohort = months[gets.capitalize.chomp]
         end
+
         students << {name: name, cohort: cohort}
-        puts "Now we have #{students.count} students"
+
+        if students.count == 1
+            puts "Now we have #{students.count} student"
+        else
+            puts "Now we have #{students.count} students"
+        end
+
         puts "Enter another student?"
         answer = gets.downcase.chomp
         if answer != "yes"
@@ -63,11 +71,18 @@ def print_sorted(students)
 end
 
 def print_footer(students)
-    puts "Overall, we have #{students.count} great students".center(50)
+    
+    if students.count == 1
+        student_s = "student"
+    else
+        student_s = "students"
+    end
+
+    puts "Overall, we have #{students.count} great #{student_s}".center(50)
 end
 
 students = input_students
-
+#print_header
 #print(students)
 print_sorted(students)
 puts ""
