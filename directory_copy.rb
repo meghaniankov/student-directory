@@ -17,17 +17,17 @@ def input_students
     students = []
     while true do
         puts "Enter name: "
-        name = gets.chomp
+        name = gets.strip
         if name.empty?
             name = "none"
         end
 
         puts "Cohort: "
-        cohort = months[gets.capitalize.chomp]
+        cohort = months[gets.capitalize.strip]
         while cohort == nil do
             puts "Try again..."
             puts "Cohort: "
-            cohort = months[gets.capitalize.chomp]
+            cohort = months[gets.capitalize.strip]
         end
 
         students << {name: name, cohort: cohort}
@@ -39,7 +39,7 @@ def input_students
         end
 
         puts "Enter another student?"
-        answer = gets.downcase.chomp
+        answer = gets.downcase.strip
         if answer != "yes"
             break
         end
@@ -61,7 +61,7 @@ end
 
 def print_sorted(students)
     print "Chose a cohort to view: "
-    answer = gets.chomp
+    answer = gets.strip
     cohort_to_view = []
     print_header
     students.map {|student| cohort_to_view << student if student[:cohort] == answer.to_sym}
