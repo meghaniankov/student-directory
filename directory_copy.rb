@@ -44,11 +44,21 @@ def print_header
     puts "-------------".center(50)
 end
 
-def print(students)
-    student_count = 0
-    until student_count == students.length do
-        puts "Name: #{students[student_count][:name]}".center(25) + "Cohort: #{students[student_count][:cohort]}".center(25)
-        student_count += 1
+# def print(students)
+#     students.sort_by! { |student| student[:cohort] }
+#     students.each do |student|
+#         puts "Name: #{student[:name]}".center(25) + "Cohort: #{student[:cohort]}".center(25)
+#     end
+# end
+
+def print_sorted(students)
+    print "Chose a cohort to view: "
+    answer = gets.chomp
+    cohort_to_view = []
+    print_header
+    students.map {|student| cohort_to_view << student if student[:cohort] == answer.to_sym}
+    cohort_to_view.each do |student|
+        puts "Name: #{student[:name]}".center(25) + "Cohort: #{student[:cohort]}".center(25)
     end
 end
 
@@ -57,7 +67,8 @@ def print_footer(students)
 end
 
 students = input_students
-print_header
-print(students)
+
+#print(students)
+print_sorted(students)
 puts ""
 print_footer(students)
