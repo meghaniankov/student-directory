@@ -1,4 +1,5 @@
 def input_students
+    students = []
     months = {
         "" => :none,
         "January" => :january,
@@ -14,7 +15,7 @@ def input_students
         "November" => :november,
         "December" => :december,
     }
-    students = []
+
     while true do
         puts "Enter name: "
         name = gets.strip
@@ -62,7 +63,7 @@ end
 # end
 
 def print_sorted(students)
-    if students.length == 1 && students[0][:name] == "none" #&& students[:cohort] == :none
+    if students.length == 1 && students[0][:name] == "none" && students[0][:cohort] == :none
         puts "No students to show"
     else
         print "Chose a cohort to view: "
@@ -76,7 +77,6 @@ def print_sorted(students)
 end
 
 def print_footer(students)
-    
     if students.count == 1
         student_s = "student"
     else
@@ -86,33 +86,5 @@ def print_footer(students)
     puts "Overall, we have #{students.count} great #{student_s}".center(50)
 end
 
-def interactive_menu
-    students = []
-    loop do
-    # 1. print the menu and ask the user what to do
-        puts "1. Input the students"
-        puts "2. Show the students"
-        puts "9. Exit"
-    # 2. read the input and save it into a variable
-        selection = gets.chomp
-    # 3. do what the user has asked
-        case selection
-        when "1"
-            students = input_students
-        when "2"
-            print_sorted(students)
-        when "9"
-            exit #this will cause the program to terminate
-        else
-            puts "I don't know what you meant, try again..."
-        end
-    end
-end
-
-#students = input_students
-#print_header
-#print(students)
-#print_sorted(students)
-#print_footer(students)
-
-interactive_menu
+students = input_students
+print_sorted(students)
