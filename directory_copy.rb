@@ -32,7 +32,9 @@ def input_students
 
         students << {name: name, cohort: cohort}
 
-        if students.count == 1
+        if students.count == 1 && students[0][:name] == "none" && students[0][:cohort] == :none
+            puts "There are no students"
+        elsif students.count == 1
             puts "Now we have #{students.count} student"
         else
             puts "Now we have #{students.count} students"
@@ -60,13 +62,16 @@ end
 # end
 
 def print_sorted(students)
-    print "Chose a cohort to view: "
-    answer = gets.strip
-    cohort_to_view = []
-    print_header
-    students.map {|student| cohort_to_view << student if student[:cohort] == answer.to_sym}
-    cohort_to_view.each do |student|
-        puts "Name: #{student[:name]}".center(25) + "Cohort: #{student[:cohort]}".center(25)
+    if students.length == 1 && students[0][:name] == "none" #&& students[:cohort] == :none
+        puts "No students to show"
+    else
+        print "Chose a cohort to view: "
+        answer = gets.downcase.strip
+        cohort_to_view = []
+        print_header
+        students.map {|student| cohort_to_view << student if student[:cohort] == answer.to_sym}
+        cohort_to_view.each { |student| puts "Name: #{student[:name]}".center(25) + "Cohort: #{student[:cohort]}".center(25)}
+        print_footer(students)
     end
 end
 
@@ -77,7 +82,7 @@ def print_footer(students)
     else
         student_s = "students"
     end
-
+    puts " "
     puts "Overall, we have #{students.count} great #{student_s}".center(50)
 end
 
@@ -85,5 +90,4 @@ students = input_students
 #print_header
 #print(students)
 print_sorted(students)
-puts ""
-print_footer(students)
+#print_footer(students)
