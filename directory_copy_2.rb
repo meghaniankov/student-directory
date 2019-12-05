@@ -1,5 +1,6 @@
 @students = []
 @default_file = "students.csv"
+@user_chosen_file = ""
 
 def input_students
     puts "Please enter the names of the students"
@@ -22,8 +23,8 @@ end
 def print_menu
     puts "1. Input the students"
     puts "2. Show the students"
-    puts "3. Save the list to #{@default_file}"
-    puts "4. Load the list from #{@default_file}"
+    puts "3. Save the list to a file"
+    puts "4. Load the list from a file"
     puts "9. Exit"
 end
 
@@ -33,6 +34,15 @@ def show_students
     print_footer
 end
 
+def chose_file
+    puts "What file would you like to use?"
+    @user_chosen_file = STDIN.gets.chomp
+    if @user_chosen_file.nil? || !File.exists?(@user_chosen_file)
+        puts "File does not exist, using file #{@default_file}"
+        @user_chosen_file = @default_file
+    end
+end
+
 def process(selection)
     case selection
     when "1"
@@ -40,9 +50,11 @@ def process(selection)
     when "2"
         show_students
     when "3"
+        chose_file
         save_students
         puts "Saved!"
     when "4"
+        chose_file
         load_students
         puts "Loaded!"
     when "9"
@@ -66,7 +78,7 @@ def print_footer
 end
 
 def save_students
-    file = File.open(@default_file, "w")
+    file = File.open(@user_chosen_file, "w")
     @students.each do |student|
         csv_line = [student[:name], student[:cohort]].join(",")
         file.puts csv_line
@@ -74,8 +86,8 @@ def save_students
     file.close
 end
 
-def load_students(filename = @default_file)
-    file = File.open(@default_file, "r")
+def load_students(filename = @user_chosen_file)
+    file = File.open(filename, "r")
     file.readlines.each do |line|
         name, cohort = line.chomp.split(",")
         add_students(name, cohort)
