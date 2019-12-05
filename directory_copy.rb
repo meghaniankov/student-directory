@@ -68,10 +68,12 @@ def print_sorted(students)
     else
         print "Chose a cohort to view: "
         answer = gets.downcase.strip
-        cohort_to_view = []
+        #cohort_to_view = []
         print_header
-        students.map {|student| cohort_to_view << student if student[:cohort] == answer.to_sym}
-        cohort_to_view.each { |student| puts "Name: #{student[:name]}".center(25) + "Cohort: #{student[:cohort]}".center(25)}
+        #students.map {|student| cohort_to_view << student if student[:cohort] == answer.to_sym}
+        #cohort_to_view.each { |student| puts "Name: #{student[:name]}".center(25) + "Cohort: #{student[:cohort]}".center(25)}
+        students.each {|student| puts "Name: #{student[:name]}".center(25) + "Cohort: #{student[:cohort]}".center(25) if student[:cohort] == answer.to_sym}
+
         print_footer(students)
     end
 end
