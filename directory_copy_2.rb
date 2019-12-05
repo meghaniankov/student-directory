@@ -41,8 +41,10 @@ def process(selection)
         show_students
     when "3"
         save_students
+        puts "Saved!"
     when "4"
         load_students
+        puts "Loaded!"
     when "9"
         exit 
     else
