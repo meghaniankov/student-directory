@@ -1,3 +1,4 @@
+require "csv"
 @students = []
 @default_file = "students.csv"
 @user_chosen_file = ""
@@ -78,20 +79,16 @@ def print_footer
 end
 
 def save_students
-    File::open(@user_chosen_file, "w") do |file|
+    CSV.open(@user_chosen_file, "w") do |file|
         @students.each do |student|
-            csv_line = [student[:name], student[:cohort]].join(",")
-            file.puts csv_line
+            file << [student[:name], student[:cohort]]
         end
     end
 end
 
 def load_students(filename = @user_chosen_file)
-    File::open(filename, "r") do |file|
-        file.readlines.each do |line|
-            name, cohort = line.chomp.split(",")
-            add_students(name, cohort)
-        end
+    CSV.foreach(filename) do |row|
+        add_students(row[0], row[1])
     end
 end
 
