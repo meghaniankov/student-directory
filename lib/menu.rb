@@ -1,11 +1,20 @@
+require_relative "directory_new"
+
 class Menu
+
+  def initialize
+    @directory = Directory.new
+    try_load_students
+  end
 
   def interactive_menu
     loop do
-        print_menu
-        process(STDIN.gets.chomp)
+      print_menu
+      process(STDIN.gets.chomp)
     end
   end
+
+  private
 
   def print_menu
     puts "1. Input the students"
@@ -18,23 +27,43 @@ class Menu
   def process(selection)
     case selection
     when "1"
-        input_students
+      @directory.input_students
     when "2"
-        show_students
+      @directory.show_students
     when "3"
-        chose_file
-        save_students
-        puts "Saved!"
+      @directory.chose_file
+      @directory.save_students
+      puts "Saved!"
     when "4"
-        chose_file
-        load_students
-        puts "Loaded!"
+      @directory.chose_file
+      @directory.load_students
+      puts "Loaded!"
     when "9"
-        exit 
+      exit 
     else
-        puts "I don't know what you meant, try again..."
+      puts "I don't know what you meant, try again..."
     end
-`end
+  end
 
+  def try_load_students
+    @filename = ARGV.first
+    if @filename.nil?
+      file_nil
+    elsif !File.exists?(@filename)
+      puts "Sorry, #{@filename} doesn't exist."
+      exit
+    end
+    load_students
+  end
+
+  def file_nil
+    puts "No file supplied."
+    @filename = @directory.file.default
+  end
+
+  def load_students
+    @directory.load_students(@filename)
+    puts "Loaded #{@directory.students.count} from #{@filename}"
+  end
 
 end
